@@ -10,6 +10,7 @@ import (
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 	"github.com/jdanielnd/go-quiz/core/alternative"
+	"github.com/jdanielnd/go-quiz/core/answer"
 	"github.com/jdanielnd/go-quiz/core/question"
 	"github.com/jdanielnd/go-quiz/web/handlers"
 )
@@ -20,8 +21,11 @@ func main() {
 		log.Fatal(err)
 	}
 	defer db.Close()
+
 	questionService := question.NewService(db)
 	alternativeService := alternative.NewService(db)
+	answerService := answer.NewService(db)
+
 	r := mux.NewRouter().StrictSlash(true)
 	n := negroni.New(
 		negroni.NewLogger(),
@@ -29,6 +33,7 @@ func main() {
 
 	handlers.MakeQuestionHandlers(r, n, questionService)
 	handlers.MakeAlternativeHandlers(r, n, alternativeService)
+	handlers.MakeAnswerHandlers(r, n, answerService)
 
 	http.Handle("/", r)
 

@@ -10,8 +10,8 @@ import (
 type UseCase interface {
 	GetAll() ([]*Question, error)
 	Get(ID int64) (*Question, error)
-	Store(b *Question) error
-	Update(b *Question) error
+	Store(a *Question) error
+	Update(a *Question) error
 	Remove(ID int64) error
 }
 

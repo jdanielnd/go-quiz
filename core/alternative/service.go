@@ -10,8 +10,8 @@ import (
 type UseCase interface {
 	GetAllFromQuestion(QuestionID int64) ([]*Alternative, error)
 	Get(ID int64) (*Alternative, error)
-	Store(b *Alternative) error
-	Update(b *Alternative) error
+	Store(a *Alternative) error
+	Update(a *Alternative) error
 	Remove(ID int64) error
 }
 
