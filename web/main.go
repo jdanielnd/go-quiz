@@ -37,11 +37,17 @@ func main() {
 
 	http.Handle("/", r)
 
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
+
 	logger := log.New(os.Stderr, "logger: ", log.Lshortfile)
 	srv := &http.Server{
 		ReadTimeout:  30 * time.Second,
 		WriteTimeout: 30 * time.Second,
-		Addr:         ":4000",
+		Addr:         ":" + port,
 		Handler:      http.DefaultServeMux,
 		ErrorLog:     logger,
 	}
