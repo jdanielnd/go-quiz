@@ -2,7 +2,7 @@ package alternative
 
 type Alternative struct {
 	ID         int64  `json:"id"`
-	QuestionID int64  `json:"question_id"`
+	QuestionID int64  `json:"-"`
 	Text       string `json:"text"`
 }
 

@@ -64,12 +64,12 @@ func (s *Service) Store(q *Question) error {
 	if err != nil {
 		return err
 	}
-	stmt, err := tx.Prepare("insert into questions(id, text, type) values (?,?,?)")
+	stmt, err := tx.Prepare("insert into questions(text, type) values (?,?)")
 	if err != nil {
 		return err
 	}
 	defer stmt.Close()
-	_, err = stmt.Exec(q.ID, q.Text, q.Type)
+	_, err = stmt.Exec(q.Text, q.Type)
 	if err != nil {
 		tx.Rollback()
 		return err

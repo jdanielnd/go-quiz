@@ -68,17 +68,14 @@ func storeAlternative(service alternative.UseCase) http.Handler {
 		}
 
 		vars := mux.Vars(r)
-		id, err := strconv.ParseInt(vars["id"], 10, 64)
+		questionID, err := strconv.ParseInt(vars["id"], 10, 64)
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
 			w.Write(formatJSONError(err.Error()))
 			return
 		}
-		if id != a.QuestionID {
-			w.WriteHeader(http.StatusBadRequest)
-			w.Write(formatJSONError(err.Error()))
-			return
-		}
+
+		a.QuestionID = questionID
 
 		err = service.Store(&a)
 		if err != nil {

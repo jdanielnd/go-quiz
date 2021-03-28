@@ -111,10 +111,8 @@ func updateQuestion(service question.UseCase) http.Handler {
 			w.Write(formatJSONError(err.Error()))
 			return
 		}
-		if id != q.ID {
-			w.WriteHeader(http.StatusConflict)
-			return
-		}
+
+		q.ID = id
 
 		err = service.Update(&q)
 		if err != nil {
