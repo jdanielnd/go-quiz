@@ -87,7 +87,7 @@ func (s *Service) Update(q *Question) error {
 	if err != nil {
 		return err
 	}
-	stmt, err := tx.Prepare("update questions set name=?, type=? where id=?")
+	stmt, err := tx.Prepare("update questions set text=?, type=? where id=?")
 	if err != nil {
 		return err
 	}
