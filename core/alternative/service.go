@@ -28,7 +28,7 @@ func NewService(db *sql.DB) *Service {
 func (s *Service) GetAllFromQuestion(QuestionID int64) ([]*Alternative, error) {
 	var result []*Alternative
 
-	stmt, err := s.DB.Prepare("select id, text from alternatives where question_id = ?")
+	stmt, err := s.DB.Prepare("select id, text, correct from alternatives where question_id = ?")
 	if err != nil {
 		return nil, err
 	}
@@ -39,7 +39,7 @@ func (s *Service) GetAllFromQuestion(QuestionID int64) ([]*Alternative, error) {
 	}
 	for rows.Next() {
 		var a Alternative
-		err = rows.Scan(&a.ID, &a.Text)
+		err = rows.Scan(&a.ID, &a.Text, &a.Correct)
 		if err != nil {
 			return nil, err
 		}
